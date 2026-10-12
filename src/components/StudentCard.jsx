@@ -1,4 +1,13 @@
-function StudentCard({ student }) {
+import { useState } from 'react'
+
+function StudentCard({ name, program, semester }) {
+  const [views, setViews] = useState(0)
+  const [showDetails, setShowDetails] = useState(false)
+
+  function handleView() {
+    setViews(views + 1)
+  }
+
   return (
     <div className="card h-100 shadow-sm">
       <div className="bg-secondary d-flex align-items-center justify-content-center" style={{ height: "160px" }}>
@@ -8,21 +17,26 @@ function StudentCard({ student }) {
         </svg>
       </div>
       <div className="card-body">
-        <h5 className="card-title">{student.name}</h5>
-        <p className="card-text mb-1 text-muted small">ID: {student.id}</p>
-        <p className="card-text mb-1 text-muted small">Major: {student.major}</p>
-        <p className="card-text mb-1 text-muted small">Year: {student.year}</p>
-        <p className="card-text mb-3 text-muted small">GPA: {student.gpa}</p>
+        <h5 className="card-title">{name}</h5>
+        <p className="card-text mb-1 text-muted small">Program: {program}</p>
+        <p className="card-text mb-1 text-muted small">Semester: {semester}</p>
+        <p className="card-text mb-3 text-muted small">Profile Views: {views}</p>
         <div className="d-flex gap-2 mb-2">
-          <button className="btn btn-outline-primary btn-sm">View Profile</button>
+          <button className="btn btn-outline-primary btn-sm" onClick={handleView}>View Profile</button>
           <button className="btn btn-outline-danger btn-sm">Delete</button>
         </div>
-        <div className="d-flex gap-1 flex-wrap">
-          <button className="btn btn-outline-primary btn-sm" style={{fontSize:"0.7rem"}} disabled>.btn-outline-primary</button>
-          <button className="btn btn-outline-danger btn-sm" style={{fontSize:"0.7rem"}} disabled>.btn-outline-danger</button>
-        </div>
+        <button className="btn btn-outline-secondary btn-sm w-100" onClick={() => setShowDetails(!showDetails)}>
+          {showDetails ? 'Hide Details' : 'Show Details'}
+        </button>
+        {showDetails && (
+          <div className="mt-2">
+            <p className="mb-1 small">Email: student@example.com</p>
+            <p className="mb-0 small">Phone: 0300-1234567</p>
+          </div>
+        )}
       </div>
     </div>
-  );
+  )
 }
-export default StudentCard;
+
+export default StudentCard
