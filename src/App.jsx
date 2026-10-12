@@ -6,14 +6,14 @@ import Pagination from "./components/Pagination";
 import Footer from "./components/Footer";
 
 const ALL_STUDENTS = [
-  { id: 101, name: "Abdul Wasiq",  major: "Computer Science",     year: 2, gpa: 3.8 },
-  { id: 102, name: "Person 2",  major: "Computer Science",     year: 2, gpa: 3.8 },
-  { id: 103, name: "Person 3",  major: "Computer Science",     year: 2, gpa: 3.8 },
-  { id: 104, name: "Person 4",   major: "Computer Science",     year: 2, gpa: 3.8 },
-  { id: 105, name: "Abdul Wasiq",  major: "Software Engineering", year: 3, gpa: 3.5 },
-  { id: 106, name: "Person 6",  major: "Data Science",         year: 1, gpa: 3.9 },
-  { id: 107, name: "Person 7",   major: "Computer Science",     year: 4, gpa: 3.2 },
-  { id: 108, name: "Person 8",  major: "Cybersecurity",        year: 2, gpa: 3.7 },
+  { id: 101, name: "Abdul Wasiq", major: "Computer Science", year: 2, gpa: 3.8 },
+  { id: 102, name: "Ali Khan", major: "Software Engineering", year: 3, gpa: 3.5 },
+  { id: 103, name: "Sara Lee", major: "Data Science", year: 1, gpa: 3.9 },
+  { id: 104, name: "Mia Chen", major: "Cybersecurity", year: 2, gpa: 3.7 },
+  { id: 105, name: "Tom Ray", major: "Computer Science", year: 4, gpa: 3.2 },
+  { id: 106, name: "Nour Ali", major: "Software Engineering", year: 1, gpa: 4.0 },
+  { id: 107, name: "Zara Fox", major: "Data Science", year: 2, gpa: 3.4 },
+  { id: 108, name: "Sam Park", major: "Computer Science", year: 4, gpa: 3.1 },
 ];
 
 const PER_PAGE = 4;
@@ -38,7 +38,11 @@ function App() {
         <div className="row g-3 mb-4">
           {currentStudents.map(student => (
             <div className="col-12 col-sm-6 col-md-3" key={student.id}>
-              <StudentCard student={student} />
+              <StudentCard
+                name={student.name}
+                program={student.major}
+                semester={student.year}
+              />
             </div>
           ))}
         </div>
