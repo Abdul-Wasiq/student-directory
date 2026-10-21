@@ -1,9 +1,14 @@
 import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Navbar from "./components/Navbar";
 import Breadcrumb from "./components/Breadcrumb";
 import StudentCard from "./components/StudentCard";
 import Pagination from "./components/Pagination";
 import Footer from "./components/Footer";
+import Home from "./components/Home"
+import Students from "./components/Students"
+import Courses from "./components/Courses"
+import Directory from "./components/Directory"
 
 const ALL_STUDENTS = [
   { id: 101, name: "Abdul Wasiq", major: "Computer Science", year: 2, gpa: 3.8 },
@@ -18,7 +23,7 @@ const ALL_STUDENTS = [
 
 const PER_PAGE = 4;
 
-function App() {
+function MainContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const [showAlert, setShowAlert] = useState(true);
 
@@ -27,37 +32,50 @@ function App() {
   const currentStudents = ALL_STUDENTS.slice(start, start + PER_PAGE);
 
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <Navbar />
-      <Breadcrumb />
-      <main className="container my-4 flex-grow-1">
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <h4 className="mb-0">Page Header</h4>
-          <button className="btn btn-primary">Add New Student</button>
-        </div>
-        <div className="row g-3 mb-4">
-          {currentStudents.map(student => (
-            <div className="col-12 col-sm-6 col-md-3" key={student.id}>
-              <StudentCard
-                name={student.name}
-                program={student.major}
-                semester={student.year}
-              />
-            </div>
-          ))}
-        </div>
-        <div className="mb-4">
-          <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
-        </div>
-        {showAlert && (
-          <div className="alert alert-info alert-dismissible fade show" role="alert">
-            Student records have been successfully updated.
-            <button type="button" className="btn-close" onClick={() => setShowAlert(false)} />
+    <main className="container my-4 flex-grow-1">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h4 className="mb-0">Page Header</h4>
+        <button className="btn btn-primary">Add New Student</button>
+      </div>
+      <div className="row g-3 mb-4">
+        {currentStudents.map(student => (
+          <div className="col-12 col-sm-6 col-md-3" key={student.id}>
+            <StudentCard
+              name={student.name}
+              program={student.major}
+              semester={student.year}
+            />
           </div>
-        )}
-      </main>
-      <Footer />
-    </div>
+        ))}
+      </div>
+      <div className="mb-4">
+        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+      </div>
+      {showAlert && (
+        <div className="alert alert-info alert-dismissible fade show" role="alert">
+          Student records have been successfully updated.
+          <button type="button" className="btn-close" onClick={() => setShowAlert(false)} />
+        </div>
+      )}
+    </main>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <div className="d-flex flex-column min-vh-100">
+        <Navbar />
+        <Breadcrumb />
+        <Routes>
+          <Route path="/" element={<MainContent />} />
+          <Route path="/students" element={<Students />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/Directory" element={<Directory />} />
+        </Routes>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 
